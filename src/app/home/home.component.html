@@ -1,0 +1,36 @@
+<p>
+  home works!
+</p>
+<a (click)="goTo('destination')">Go TO DIV</a>
+
+<div routerLink="/shop">to shop</div>
+<div routerLink="/bootstrap">to bootstrap</div>
+
+<input type="text" [(ngModel)]="name">
+{{name}}
+<div routerLink="/im">to im</div>
+<div (click)="popup()">alert</div>
+<div routerLink="/admin">to admin</div>
+<div>aaa</div>
+<div>aaa</div><div>aaa</div><div>aaa</div><div>aaa</div>
+<div>aaa</div><div>aaa</div><div>aaa</div><div>aaa</div>
+<div>aaa</div><div>aaa</div><div>aaa</div><div>aaa</div>
+<div>aaa</div><div>aaa</div><div>aaa</div><div>aaa</div>
+<div>aaa</div><div>aaa</div><div>aaa</div><div>aaa</div>
+<div>aaa</div><div>aaa</div><div>aaa</div><div>aaa</div>
+<div>aaa</div><div>aaa</div><div>aaa</div><div>aaa</div>
+<div>aaa</div><div>aaa</div><div>aaa</div><div>aaa</div>
+<div>aaa</div><div>aaa</div><div>aaa</div><div>aaa</div>
+
+<div>aaa</div><div>aaa</div><div>aaa</div><div>aaa</div>
+
+ 
+<div id="destination">
+    <h2>Destination</h2>
+</div>
+<nav>
+  <a routerLink="./" routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+  <a routerLink="/admin" routerLinkActive="active">Manage Crises</a>
+  <a routerLink="/shop" routerLinkActive="active">Manage Heroes</a>
+</nav>

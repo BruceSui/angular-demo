@@ -1,0 +1,14 @@
+<p>
+  admin works!
+</p>
+<nav>
+  <a routerLink="/admin/crises" routerLinkActive="active">Crisis Center</a>
+  <a routerLink="/admin/heroes" routerLinkActive="active">Heroes</a>
+  <a routerLink="/admin" routerLinkActive="active">Admin</a>
+  <!-- <a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a> -->
+</nav>
+<div [@routeAnimation]="getAnimationData(routerOutlet)">
+  <router-outlet #routerOutlet="outlet"></router-outlet>
+</div>
+<router-outlet name="popup"></router-outlet>
+

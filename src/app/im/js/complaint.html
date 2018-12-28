@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<script src="https://cdn.bootcss.com/angular.js/1.5.6/angular.min.js"></script>
+<script type="text/javascript">
+
+var app = angular.module('myApp', []);
+app.controller('siteCtrl', function($scope, $http) {
+	$scope.sayHello = function() {
+		$http({
+	        method: 'GET',
+	        url: 'http://localhost:8080/complaint/search/' + $scope.diskName
+	    }).then(function successCallback(response) {
+	    		$scope.diskNames = response.data;
+	        }, function errorCallback(response) {
+	            // 请求失败执行代码
+	           alert('asd');
+	    });
+    };
+    
+    $scope.lookup = function() {
+    	$http({
+	        method: 'POST',
+	        url: 'http://localhost:8080/complaint/lookup',
+	        data: $scope.diskName
+	    }).then(function successCallback(response) {
+	            $scope.diskNames = response.data;
+	        }, function errorCallback(response) {
+	            // 请求失败执行代码
+	           alert('asd');
+	    });
+    };
+});
+</script>
+</head>
+<body>
+<!--  -->
+	<form action="#" ng-app="myApp" name="fm" ng-controller="siteCtrl"  ng-init="diskName=1">
+	      <input ng-model="diskName">
+	      <button ng-click='sayHello()'>get提交</button>
+	      <button ng-click='lookup()'>post提交</button>
+	      <ul>
+	        <li ng-repeat="x in diskNames">{{x}}</a></li>
+	      </ul>
+	</form>
+</body>
+</html>
