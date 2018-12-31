@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FooterService } from './footer/footer.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-shared',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SharedComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
+  response: string;
+  constructor(
+    private footer: FooterService,
+    private location: Location,
+  ) {
+    this.footer.$response.subscribe((data: string) => {
+      console.log(data);
+      this.response = data;
+    })
   }
 
+  ngOnInit() {
+    
+  }
+
+  goBack() {
+    this.location.back();
+  }
+  dd() {
+    alert(this.response);
+  }
 }

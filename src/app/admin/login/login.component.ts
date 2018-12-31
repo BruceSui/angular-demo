@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +14,8 @@ export class LoginComponent implements OnInit {
   password: string;
   constructor(
     private service: LoginService,
+    private location: Location,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -29,5 +33,9 @@ export class LoginComponent implements OnInit {
   }
   logout() {
     console.log(document.cookie);
+  }
+  goBack() {
+    this.location.back();
+    // this.router.navigate(['/admin']);
   }
 }
