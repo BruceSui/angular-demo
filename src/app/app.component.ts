@@ -18,6 +18,6 @@ export class AppComponent implements OnInit {
           // this.router;
           console.log(this.router.url);
       }
-  });
+    });
   }
 }

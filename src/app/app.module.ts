@@ -10,10 +10,19 @@ import { ImModule } from './im/im.module';
 import { AdminModule } from './admin/admin.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BootstrapModule } from './bootstrap/bootstrap.module';
+import { MainComponent } from './layouts/main/main.component';
+import { ErrorComponent } from './layouts/error/error.component';
+import { FooterComponent } from './layouts/footer/footer.component';
+import { NavbarComponent } from './layouts/navbar/navbar.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainComponent,
+    ErrorComponent,
+    FooterComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,8 +34,9 @@ import { BootstrapModule } from './bootstrap/bootstrap.module';
     ImModule,
     AdminModule,
     BootstrapModule,
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [MainComponent]
 })
 export class AppModule { }

@@ -4,6 +4,8 @@ import { SharedComponent } from './shared.component';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { SharedRoutes } from './shared.routing';
+import { CarChioceComponent } from './car-chioce/car-chioce.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   imports: [
@@ -14,6 +16,11 @@ import { SharedRoutes } from './shared.routing';
   declarations: [
     SharedComponent,
     FooterComponent,
+    CarChioceComponent,
+    AlertComponent,
+  ],
+  exports: [
+    CarChioceComponent,
   ]
 })
 export class SharedModule { }

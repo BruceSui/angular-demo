@@ -25,10 +25,10 @@ export class ImComponent implements OnInit {
     this.yunxin.disconnect();
   }
   connect() {
-    if (this.yunxin.nim && this.yunxin.accid === this.accid) {
+    if (this.yunxin.nim && this.yunxin.account.id === this.accid) {
       this.yunxin.connect();
     } else {
-      this.yunxin.init(this.accid, this.token);
+      this.yunxin.init({});
     }
     this.yunxin.onmsg((msg) => {
       console.log(msg);
@@ -62,7 +62,7 @@ export class ImComponent implements OnInit {
     this.location.back();
   }
   updateUnifo() {
-    this.yunxin.updateUnifo().subscribe(data=> {
+    this.yunxin.updateName('ss').subscribe(data=> {
       console.log(data);
     })
   }
