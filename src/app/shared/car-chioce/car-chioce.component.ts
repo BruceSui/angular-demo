@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CarChoiceService } from './car-choice.service';
 import { Subscription } from 'rxjs';
-import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'jhi-car-chioce',
@@ -11,33 +10,25 @@ import { Router, NavigationEnd } from '@angular/router';
 export class CarChioceComponent implements OnInit, OnDestroy {
     carBrands = new Array();
     carTrees = new Array();
-    carTree = { level: 0 };
     carBrandsList = new Array();
 
     type: number;
     isPopup = false;
     subscription: Subscription;
+
     constructor(
         private service: CarChoiceService,
-        private router: Router,
     ) {
         this.subscription = this.service.$request.subscribe((data: any) => {
             console.log(data);
             this.type = data;
             this.isPopup = true;
+            this.getCarBrands();
             document.body.style.overflow = 'hidden';
         });
     }
 
     ngOnInit() {
-        this.router.events.subscribe(event => {
-            // console.log(event);
-            if (event instanceof NavigationEnd) {
-                // this.router;
-                console.log(this.router.url);
-            }
-          });
-        this.getCarBrands();
     }
     ngOnDestroy() {
         // prevent memory leak when component destroyed
@@ -64,22 +55,36 @@ export class CarChioceComponent implements OnInit, OnDestroy {
         });
     }
     searchCarTree(carTree) {
+        console.log();
+        // let pagePopup = <HTMLDivElement>document.querySelector('.pagePopup');
+        // pagePopup.style.overflowY = 'hidden';
+        if (carTree.level === 4) {
+            this.doResponse(carTree);
+            return;
+        }
         if (this.type === 1) {
             this.doResponse(carTree);
         } else if (this.type === 2) {
             this.carTrees.splice(0, this.carTrees.length);
             this.service.searchCarTree(carTree).subscribe((data: any) => {
+                console.log(data);
                 this.carTrees.push(...data);
             });
         }
     }
-
-    goBack() {
-        document.body.style.overflow = '';
-        this.isPopup = false;
-    }
     doResponse(carTree) {
-        this.goBack();
+        this.goBack(2);
         this.service.doResponse(carTree);
+    }
+    goBack(type: number) {
+        // let pagePopup = <HTMLDivElement>document.querySelector('.pagePopup');
+        // pagePopup.style.overflowY = 'scroll';
+        this.carTrees.splice(0, this.carTrees.length);
+        if (type === 1)  {
+            return;
+        } else if (type ===2) {
+            document.body.style.overflow = '';
+            this.isPopup = false;
+        }
     }
 }

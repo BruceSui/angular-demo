@@ -1,10 +1,6 @@
-<!-- <div class="popup">
-
-</div> -->
 <!-- 提问头部 -->
-{{isPopup}}
 <div class="pagePopup" *ngIf="isPopup">
-    <div class="app-header"><span (click)="goBack()" routerActive='active'></span>
+    <div class="app-header"><span (click)="goBack(2)" routerActive='active'></span>
         <div class="head-title1">车型选择
         </div>
     </div>
@@ -84,26 +80,27 @@
       <a name="Z">Z</a>
   </div> -->
 
-  <div class="list" >
-    <div *ngFor = "let carBrands of carBrandsList">
-      <a href="">{{carBrands.cateId}}</a>
-      <div class="listdetail" *ngFor="let carBrand of carBrands.carBrands">
-        <a (click)="searchCarTree({oEM: carBrand.carName, level: 1})">
-        <div>
-          <img class="left" src="{{carBrand.carIcon}}" alt='test' onerror="this.src='http://mattrio-car-img.oss-cn-shanghai.aliyuncs.com/car_icon/jianghuai.jpg'" >
-          <div class="right">{{ carBrand.carName}}</div>
+    <div class="list" id="list">
+        <div *ngFor = "let carBrands of carBrandsList">
+            <a href="">{{carBrands.cateId}}</a>
+            <div class="listdetail" *ngFor="let carBrand of carBrands.carBrands">
+                <a (click)="searchCarTree({oEM: carBrand.carName, level: 1})">
+                    <div>
+                        <img class="left" src="{{carBrand.carIcon}}" alt='test' onerror="this.src='http://mattrio-car-img.oss-cn-shanghai.aliyuncs.com/car_icon/jianghuai.jpg'" >
+                        <div class="right">{{ carBrand.carName}}</div>
+                    </div>
+                </a>
+            </div>
         </div>
-        </a>
-      </div>
     </div>
-  </div>
+
+    <div class="popupBackground" *ngIf="carTrees.length > 0" (click)="goBack(1)"></div>
+    <div class="popup" *ngIf="carTrees.length > 0">
+        <!-- <div class="title">{{title}}</div> -->
+        <div *ngFor="let carTree of carTrees" (click)="searchCarTree(carTree, carTree.level)">{{carTree.message}}</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;</div>
+    </div>
 </div>
 
-<!-- <div class="popupBackground" *ngIf="isPopupBackground" (click)="goBack(0)"></div>
-<div class="popup" *ngIf="isPopupBackground">
-    <div class="title">{{title}}</div>
-    <div *ngFor="let carDetail of carDetails" (click)="getCarDetails(carDetail, level)">{{carDetail}}</div>
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
-    <div>&nbsp;</div>
-</div> -->

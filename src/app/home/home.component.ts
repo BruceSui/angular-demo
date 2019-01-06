@@ -43,6 +43,6 @@ export class HomeComponent implements OnInit {
     window.location.hash = location;
   }
   carChoicePopup() {
-    this.carChoice.doRequest(1);
+    this.carChoice.doRequest(2);
   }
 }
