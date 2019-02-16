@@ -21,7 +21,7 @@ export class CarChoiceService {
         this.response.next(value);
     }
     searchBrand() {
-        const url = '/car/api/searchBrand';
+        const url = '/car111/api/searchBrand';
         return this.http.get(url);
     }
     searchCarTree(param) {

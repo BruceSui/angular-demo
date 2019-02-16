@@ -23,9 +23,12 @@ export class HomeComponent implements OnInit {
     carChoice.$response.subscribe(data => {
       console.log(data);
     });
+    
   }
 
   ngOnInit() {
+    // let at = <HTMLAudioElement>document.getElementById('ccc');
+    // at.src = 'C:\Users\Administrator\Desktop\mizuki - aLIEz.mp3';
     console.log(this.router.url);
     window.scrollTo(0,0);
   }
