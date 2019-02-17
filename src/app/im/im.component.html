@@ -5,6 +5,8 @@
 <div>dahu01  e9cd9ed5e0202dbbde9ac5cb47605cef</div>
 <div>dahu02  d38e8d098a3b29d7ac52dfe5185818fd</div>
 <div>dahu3  d732ca851399ba8f6028cd4b350d68bf</div>
+<div>dahu01  25540d5a719d9416a3c69ce0827915e9</div>
+<div>dahu02  a193bb88388d7d23f7f656b4c1930be2</div>
 
 <input type="text" [(ngModel)]="accid" value="dahu01"><br>
 <input type="text" [(ngModel)]="token" value=""><br>
@@ -12,5 +14,7 @@
 <div (click)="disconnect()">disconnect</div>
 toUserId: <input type="text" name="" id="" [(ngModel)]="toUserId"><br>
 message: <input type="text" name="" id="" [(ngModel)]="message"><br>
-<div (click)="onMsg()">send</div>
+{{response}}
+<div (click)="sendText()">send</div>
 <div (click)="updateUnifo()">updateUnifo</div>
+<div (click)="record()">语音</div>

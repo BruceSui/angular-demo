@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import * as SDK from './js//NIM_Web_SDK_v5.3.0';
+import * as SDK from './3rd/NIM_Web_SDK_v6.1.1';
 import { CheckSumBuilder } from './js/sha1';
 import { SHA2 } from './js/SHA1Util';
 import { Subject } from 'rxjs';
@@ -141,12 +141,12 @@ export class YunxinService {
   private onConnect() {
       console.log(this.account.accid + '连接成功');
       console.log(this.account);
-      this.updateName(this.account.nickName).subscribe(data => {
-          console.log(data);
-      });
-      this.updateIcon(this.account.imageUrl).subscribe(data => {
-          console.log(data);
-      });
+    //   this.updateName(this.account.nickName).subscribe(data => {
+    //       console.log(data);
+    //   });
+    //   this.updateIcon(this.account.imageUrl).subscribe(data => {
+    //       console.log(data);
+    //   });
   }
   private onDisconnect(obj) {
       console.log(this.account.accid + '连接断开', obj);
@@ -173,7 +173,7 @@ export class YunxinService {
   }
   private onSessions(sessions) {
       console.log('收到会话列表', sessions);
-      sessions.array.forEach(element => {
+      sessions.forEach(element => {
           this.unread += element.unread;
       });
       this.unreadSource.next(this.unread);
