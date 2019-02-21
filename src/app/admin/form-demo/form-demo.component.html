@@ -1,0 +1,13 @@
+<p>
+  form-demo works!
+</p>
+<input class="name" type="number" required maxlength="5" [(ngModel)]="name" #name1="ngModel" (blur)="nameBlur(name1)" (input)="nameinput()">
+<div *ngIf="name1.touched">
+  haha
+</div>
+<div *ngIf="name1.errors?.required">
+  required
+</div>
+<div (click)="file()">
+  file
+</div>

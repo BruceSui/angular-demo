@@ -33,8 +33,8 @@ export var SDKBridge = function(ctr, data) {
     // appKey: CONFIG.appkey,
     account: userUID,
     token: sdktoken,
-    appKey: '9becfea0e0da17d58a4bb407a421b9dc',
-    // appKey: 'ee81e2ebf60b09295a0b8921621bf4f8',
+    // appKey: '9becfea0e0da17d58a4bb407a421b9dc',
+    appKey: 'd6c5041098e344c7692c5761953e5f76',
     // 私有化配置文件
     // privateConf: CONFIG.privateConf,
     //连接
@@ -94,13 +94,13 @@ export var SDKBridge = function(ctr, data) {
     this.teamMemberDone = false;
     this.sysMsgDone = false;
     console && console.log(userUID + '连接成功');
-    // this.nim.getClientAntispamLexicon({
-    //   done: function(error) {
-    //     if (!error) {
-    //       console.log('成功获取反垃圾词库');
-    //     }
-    //   }
-    // });
+    this.nim.getClientAntispamLexicon({
+      done: function(error) {
+        if (!error) {
+          console.log('成功获取反垃圾词库');
+        }
+      }
+    });
   }
 
   function onKicked(obj) {
@@ -1077,3 +1077,8 @@ SDKBridge.prototype.sendText = function(
   };
   this.nim.sendText(options);
 };
+
+SDKBridge.prototype.sendRecordAudio = function(param) {
+  this.nim.sendFile(param);
+};
+

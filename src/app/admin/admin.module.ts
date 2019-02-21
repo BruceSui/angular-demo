@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
+import { FormDemoComponent } from './form-demo/form-demo.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     DashboardComponent,
     HeroesComponent,
     LoginComponent,
+    FormDemoComponent,
   ]
 })
 export class AdminModule { }

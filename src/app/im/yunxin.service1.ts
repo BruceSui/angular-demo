@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import * as Recorder  from './3rd/recorder';
+
 import { Cache } from './js/cache';
-import { NetcallBridge } from './js/netcall';
 
 import { SDKBridge } from './js/link';
 import { Subject } from 'rxjs';
@@ -26,7 +26,6 @@ export class YunxinService {
   private unreadSource = new Subject();
   unread$ = this.unreadSource.asObservable();
   yunxin: any;
-  audioContext = Recorder.AudioContext;
 
   accid: any;
   token: any;
@@ -47,10 +46,6 @@ export class YunxinService {
     // this.initModule();
     this.cache = new Cache();
     this.mysdk = new SDKBridge(this, this.cache);
-    this.myNetcall = new NetcallBridge(this);
-    // if (window.nim) {
-    //   this.myNetcall = new NetcallBridge(this);
-    // }
     this.firstLoadSysMsg = true;
     this.totalUnread = 0;
     

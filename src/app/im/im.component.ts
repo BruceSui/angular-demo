@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 // import { Recorder } from './3rd/recorder';
 import Recorder  from './3rd/recorder';
 // var Recorder = require('./3rd/recorder');
+import { YX }  from './js/base';
 
 @Component({
   selector: 'app-im',
@@ -22,6 +23,7 @@ export class ImComponent implements OnInit {
   historyMsgs = new Array();
 
   audioContext = Recorder.AudioContext;
+  yx: any;
 
   constructor(
     private yunxin: YunxinService,
@@ -36,50 +38,87 @@ export class ImComponent implements OnInit {
     // this.yunxin.disconnect();
   }
   connect() {
-    this.yunxin.init(this.accid, this.token);
+    // this.yunxin.init(this.accid, this.token);
     // this.yunxin.init({accid: this.accid, token: this.token});
 
-    this.yunxin.setOnMsg((msg) => {
-      this.onMsg(msg);
-    });
-    // if (this.yunxin.nim && this.yunxin.account.id === this.accid) {
-    //   this.yunxin.connect();
-    // } else {
-    //   this.yunxin.init({});
-    // }
-    // this.yunxin.onmsg((msg) => {
-    //   console.log(msg);
+    // this.yunxin.setOnMsg((msg) => {
+    //   this.onMsg(msg);
     // });
-    // this.getHistoryMsgs();
+
+
+    this.yx = new YX(this.accid, this.token);
   }
-  record() {
-    Recorder.mediaDevices.getUserMedia({
+  recordAudio() {
+    var self = this
+    this.audioContext = new AudioContext();
+    console.log(this.audioContext);
+    
+
+    navigator.mediaDevices.getUserMedia({
       audio: true
-    }).then((stream) => {
-      var input = this.audioContext.createMediaStreamSource(stream);
-      var recorder = new Recorder(input);
-      recorder.record();
-      if (this.audioContext.state.indexOf('suspend')) {
-        this.audioContext.resume().then(function () {
-          recorder.record();
+    }).then(stream => {
+      var input = self.audioContext.createMediaStreamSource(stream);
+      YX.fn.recorder = new Recorder(input);
+      YX.fn.recorder.record();
+      if (~self.audioContext.state.indexOf('suspend')) {
+        self.audioContext.resume().then(function () {
+          YX.fn.recorder.record();
+          // self.showRecorderTime()
           console.log('audioContext suspend state resume');
         })
       } else {
-        console.log('audioContext unsuspend state resume');
+        // self.showRecorderTime()
       }
+      console.log('audioContext suspend state resume');
     }).catch(function(err) {
       alert('您没有可用的麦克风输入设备')
-      console.log(err);
+      // self.$toRecord.addClass('disabled')
       console.log('No live audio input: ' + err, err.name + ": " + err.message);
     });
   }
+  cancelRecordAudio() {
+    YX.fn.recorder.stop();
+    YX.fn.recorder.clear();
+    YX.fn.recordTime = 0
+  }
+  sendRecordAudio() {
+    const self = this.yx;
+    YX.fn.recorder.exportWAV((blob) => {
+      // self.$toRecord.addClass('uploading');
+      self.sendRecordAudio({
+        scene: 'p2p',
+        // to: self.crtSessionAccount,
+        to: this.toUserId,
+        type: 'audio',
+        blob: blob,
+        uploadprogress: function(obj) {
+          console.log('文件总大小: ' + obj.total + 'bytes');
+          console.log('已经上传的大小: ' + obj.loaded + 'bytes');
+          console.log('上传进度: ' + obj.percentage);
+          console.log('上传进度文本: ' + obj.percentageText);
+          if (obj.percentage === 100) {
+            // self.$toRecord.removeClass('uploading');
+            // self.$toRecord.removeClass('recorded');
+          }
+        },
+        done: () => {
+          console.log('done');
+          this.cancelRecordAudio();          
+        }
+      });
+    });
+    this.cancelRecordAudio();
+  }
+  
+
+
   onMsg(msg) {
     console.log('收到消息');
     console.log(msg);
     this.response = msg;
   }
   sendText() {
-    this.yunxin.sendText({
+    this.yx.sendText({
       scene: 'p2p',
       to: this.toUserId,
       text: this.message,

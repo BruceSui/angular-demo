@@ -6,7 +6,7 @@ export var YX = function(accid, token) {
   this.accid = accid;
   this.token = token;
   // this.initModule();
-  this.cache = new Cache();
+  this.cache = new Cache(accid);
   this.mysdk = new SDKBridge(this, this.cache);
   // if (window.nim) {
   //   this.myNetcall = new NetcallBridge(this);
@@ -536,67 +536,12 @@ YX.fn.playAudio.$audio = {
 }
 
 
-/*
-* 会话模块 
-*/
-YX.fn.session = function () {
-   
-}
-/**
- * 最近联系人显示
- * @return {void}
- */
-YX.fn.buildSessions = function(id) {
-    var data = {
-        sessions:this.cache.getSessions(),
-        personSubscribes: this.cache.getPersonSubscribes()
-    }
-    if(!this.sessions){
-        var options = {
-            data:data,
-            onclickavatar:this.showInfo.bind(this),
-            onclickitem:this.openChatBox.bind(this),
-            infoprovider:this.infoProvider.bind(this),
 
-        } 
-        this.sessions = new NIMUIKit.SessionList(options)
-        this.sessions.inject($('#sessions').get(0))
-    }else{
-        this.sessions.update(data)
-    }
-    //导航上加未读示例  
-    this.showUnread()         		
-    this.doPoint()
-    //已读回执处理
-    this.markMsgRead(id)
-    var $node = $(".m-unread .u-unread")
-    $node.on('mouseenter', function () {
-        $node.text('×')
-    })
-    $node.on('mouseleave', function () {
-        $node.text(this.totalUnread)
-    }.bind(this))
-    $node.on('click', function (event) {
-        this.nim.resetAllSessionUnread()
-        event.preventDefault()
-    }.bind(this))
+YX.fn.sendText = function (param) {
+  // this.mysdk.sendTextMessage(param.scene, param.to, param.text, true, param.done);
+  this.mysdk.sendText(param.scene, param.to, param.text, param.done);
 }
- // 导航上加未读数
-YX.fn.showUnread = function () {
-    var counts = $("#sessions .panel_count")
-    this.totalUnread = 0
-    if(counts.length!==0){
-        if(this.totalUnread !=="99+"){
-            for (var i = counts.length - 1; i >= 0; i--) {
-                if($(counts[i]).text()==="99+"){
-                    this.totalUnread = "99+"
-                    break
-                }
-                this.totalUnread +=parseInt($(counts[i]).text(),10)
-            }
-        }
-    }
-    var $node = $(".m-unread .u-unread")
-    $node.text(this.totalUnread)
-    this.totalUnread?$node.removeClass("hide"):$node.addClass("hide")
+
+YX.fn.sendRecordAudio = function (param) {
+  this.mysdk.sendRecordAudio(param);
 }
